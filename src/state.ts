@@ -1,4 +1,4 @@
-import { combineLatest, map, merge } from 'rxjs';
+import { combineLatest, delay, map, merge } from 'rxjs';
 
 import { bind } from '@react-rxjs/core';
 import { createSignal } from '@react-rxjs/utils';
@@ -7,7 +7,7 @@ import { getUsers } from './api/getUsers';
 import { UserProps } from './components/UserSelected';
 
 export const [usersChange$, setUsers] = createSignal<UserProps[]>();
-export const [useUsers, users$] = bind<UserProps[]>(merge(usersChange$, getUsers()), []);
+export const [useUsers, users$] = bind<UserProps[]>(merge(usersChange$, getUsers().pipe(delay(200))));
 
 export const [selectedUserIDChange$, setSelectedUserID] = createSignal<number>();
 export const [useSelectedUser, selectedUserID$] = bind(
