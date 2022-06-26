@@ -1,6 +1,6 @@
 import { map, Observable } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
-import { UserProps } from '../components/UserSelected/UserSelected';
+import { UserProps } from '../components/SelectedUser/SelectedUser';
 
 export interface ApiResponse {
   data: UserResponse[];

@@ -7,7 +7,7 @@ export interface UserProps {
   avatar: string;
 }
 
-export function UserSelected() {
+export function SelectedUser() {
   const { userID, name, age } = useSelectedUser() ?? {};
 
   return (
