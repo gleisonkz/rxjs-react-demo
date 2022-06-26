@@ -1,4 +1,5 @@
 import { useSelectedUser } from '../../state/state';
+import styles from './SelectedUser.module.css';
 
 export interface UserProps {
   userID: number;
@@ -12,7 +13,7 @@ export function SelectedUser() {
 
   return (
     <>
-      <h2 className="selected-user">
+      <h2 className={styles.selected}>
         Selected User:{" "}
         {userID == null ? (
           "None"
