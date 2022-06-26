@@ -1,0 +1,16 @@
+{
+  "importSorter.sortConfiguration.customOrderingRules.rules": [
+    {
+      "regex": "react.+",
+      "orderLevel": 5
+    },
+    {
+      "regex": "^@app.+",
+      "orderLevel": 10
+    },
+    {
+      "regex": "^[.]",
+      "orderLevel": 20
+    }
+  ]
+}
