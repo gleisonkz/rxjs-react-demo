@@ -1,4 +1,4 @@
-import { useSelectedUser } from '../state';
+import { useSelectedUser } from '../../state/state';
 
 export interface UserProps {
   userID: number;
