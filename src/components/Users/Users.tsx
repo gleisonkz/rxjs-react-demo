@@ -1,4 +1,5 @@
 import { setSelectedUserID, setUsers, useUsers } from '../../state/state';
+import styles from './Users.module.css';
 
 export function Users() {
   const users = useUsers();
@@ -14,14 +15,15 @@ export function Users() {
 
   return (
     <>
-      <div className="users">
-        {users.map((user) => (
-          <div className="user" key={user.userID}>
+      <div className={styles.users}>
+        {users.map(({ userID, name, age, avatar }) => (
+          <div className={styles.user} key={userID}>
+            <img className={styles.avatar} src={avatar} alt="User Avatar" />
             <span>
-              {user.name} is {user.age} years old
+              {name} is {age} years old
             </span>
-            <button onClick={() => incrementAge(user.userID)}>Increment</button>
-            <button onClick={() => setSelectedUserID(user.userID)}>Select</button>
+            <button onClick={() => incrementAge(userID)}>Increment</button>
+            <button onClick={() => setSelectedUserID(userID)}>Select</button>
           </div>
         ))}
       </div>
