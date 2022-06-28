@@ -1,4 +1,4 @@
-import { useSelectedUser } from '../../state/state';
+import { useUpdatedSelectedUser } from '../../state/state';
 import styles from './SelectedUser.module.css';
 
 export interface UserProps {
@@ -9,7 +9,7 @@ export interface UserProps {
 }
 
 export function SelectedUser() {
-  const { userID, name, age } = useSelectedUser() ?? {};
+  const { userID, name, age } = useUpdatedSelectedUser() ?? {};
 
   return (
     <>

@@ -1,34 +1,25 @@
-import { setSelectedUserID, setUsers, useUsers } from '../../state/state';
+import { useEffect } from 'react';
+import { lastValueFrom } from 'rxjs';
+import { getUsers } from '../../api/getUsers';
+import { onAddUser, userUserIds } from '../../state/state';
+import { User } from '../User/User';
 import styles from './Users.module.css';
 
 export function Users() {
-  const users = useUsers();
+  const userIds = userUserIds();
 
-  const incrementAge = (userID: number) => {
-    const newUsers = users.map((user) => {
-      if (user.userID === userID) return { ...user, age: user.age + 1 };
-      return user;
-    });
-
-    setUsers(newUsers);
-  };
+  useEffect(() => {
+    (async () => {
+      const users = await lastValueFrom(getUsers());
+      users.forEach(onAddUser);
+    })();
+  }, []);
 
   return (
     <>
       <div className={styles.users}>
-        {users.map(({ userID, name, age, avatar }) => (
-          <div data-testid="user" className={styles.user} key={userID}>
-            <img className={styles.avatar} src={avatar} alt="User Avatar" />
-            <span>
-              {name} is <span data-testid="age">{age}</span> years old
-            </span>
-            <button data-testid="increment-age-button" onClick={() => incrementAge(userID)}>
-              Increment
-            </button>
-            <button data-testid="select-user-button" onClick={() => setSelectedUserID(userID)}>
-              Select
-            </button>
-          </div>
+        {userIds.map((userID) => (
+          <User key={userID} userID={userID} />
         ))}
       </div>
     </>

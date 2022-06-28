@@ -1,4 +1,4 @@
-import { map, Observable } from 'rxjs';
+import { delay, map, Observable } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
 import { UserProps } from '../components/SelectedUser/SelectedUser';
 
@@ -17,6 +17,7 @@ export interface UserResponse {
 export function getUsers(): Observable<UserProps[]> {
   const url = "https://reqres.in/api/users/";
   return ajax.getJSON<ApiResponse>(url).pipe(
+    delay(2000),
     map(({ data: users }) => {
       return users.map((user) => {
         const { id, first_name, last_name, avatar } = user;
