@@ -13,7 +13,7 @@ export function SelectedUser() {
 
   return (
     <>
-      <h2 className={styles.selected}>
+      <h2 data-testid="selected-user" className={styles.selected}>
         Selected User:{" "}
         {userID == null ? (
           "None"

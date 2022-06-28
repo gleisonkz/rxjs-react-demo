@@ -17,13 +17,17 @@ export function Users() {
     <>
       <div className={styles.users}>
         {users.map(({ userID, name, age, avatar }) => (
-          <div className={styles.user} key={userID}>
+          <div data-testid="user" className={styles.user} key={userID}>
             <img className={styles.avatar} src={avatar} alt="User Avatar" />
             <span>
-              {name} is {age} years old
+              {name} is <span data-testid="age">{age}</span> years old
             </span>
-            <button onClick={() => incrementAge(userID)}>Increment</button>
-            <button onClick={() => setSelectedUserID(userID)}>Select</button>
+            <button data-testid="increment-age-button" onClick={() => incrementAge(userID)}>
+              Increment
+            </button>
+            <button data-testid="select-user-button" onClick={() => setSelectedUserID(userID)}>
+              Select
+            </button>
           </div>
         ))}
       </div>

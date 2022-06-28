@@ -11,17 +11,20 @@ export interface UserResponse {
   first_name: string;
   last_name: string;
   avatar: string;
+  age?: number;
 }
 
 export function getUsers(): Observable<UserProps[]> {
   const url = "https://reqres.in/api/users/";
   return ajax.getJSON<ApiResponse>(url).pipe(
     map(({ data: users }) => {
-      return users.map(({ id, first_name, last_name, avatar }) => {
+      return users.map((user) => {
+        const { id, first_name, last_name, avatar } = user;
+
         const userProps: UserProps = {
           userID: id,
           name: `${first_name} ${last_name}`,
-          age: Math.floor(Math.random() * 100),
+          age: user?.age ?? Math.floor(Math.random() * 100),
           avatar,
         };
 
