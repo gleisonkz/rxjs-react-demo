@@ -11,19 +11,19 @@ describe("[RxJS-React-Demo] - User Flow", () => {
       statusCode: 200,
       body: [
         FIRST_USER,
-          {
-            id: 2,
+        {
+          id: 2,
           name: "Janet",
-            avatar: "https://reqres.in/img/faces/2-image.jpg",
-            age: 35,
-          },
-          {
-            id: 3,
+          avatar: "https://reqres.in/img/faces/2-image.jpg",
+          age: 35,
+        },
+        {
+          id: 3,
           name: "Emma",
-            avatar: "https://reqres.in/img/faces/3-image.jpg",
-            age: 25,
-          },
-        ],
+          avatar: "https://reqres.in/img/faces/3-image.jpg",
+          age: 25,
+        },
+      ],
     }).as("fake getUsers");
   });
 
@@ -52,5 +52,15 @@ describe("[RxJS-React-Demo] - User Flow", () => {
     cy.getByTestId("increment-age-button").first().click();
     cy.getByTestId("age").should("contain", "24");
     cy.getByTestId("selected-user").should("contain", "None");
+  });
+
+  it("should create new user when click on create button", () => {
+    cy.getByTestId("name-input").type("John Doe");
+    cy.getByTestId("age-input").type("30");
+    cy.getByTestId("add-user-button").click();
+
+    cy.getByTestId("user").its("length").should("equal", 4);
+    cy.getByTestId("user").last().should("contain", "John Doe");
+    cy.getByTestId("user").last().should("contain", "30 years old");
   });
 });

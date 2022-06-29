@@ -8,16 +8,20 @@ export function CreateUser() {
 
   return (
     <>
-      <div className={styles.container} data-testid="user">
+      <div className={styles.container}>
         <div className={styles.inputContainer}>
-          <label htmlFor="">Name:</label>
-          <input onChange={(e) => setName(e.target.value)} type="text" />
+          <label>Name:</label>
+          <input data-testid="name-input" onChange={(e) => setName(e.target.value)} type="text" />
         </div>
         <div className={styles.inputContainer}>
-          <label htmlFor="">Age:</label>
-          <input onChange={(e) => setAge(+e.target.value)} type="text" />
+          <label>Age:</label>
+          <input data-testid="age-input" onChange={(e) => setAge(+e.target.value)} type="text" />
         </div>
-        <button onClick={() => onAddUser({ name, age, avatar: "assets/images/no-user.svg" })} className="primary">
+        <button
+          data-testid="add-user-button"
+          onClick={() => onAddUser({ name, age, avatar: "assets/images/no-user.svg" })}
+          className="primary"
+        >
           Create
         </button>
       </div>
