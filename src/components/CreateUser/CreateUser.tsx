@@ -17,7 +17,7 @@ export function CreateUser() {
           <label htmlFor="">Age:</label>
           <input onChange={(e) => setAge(+e.target.value)} type="text" />
         </div>
-        <button onClick={() => onAddUser({ name, age })} className="primary">
+        <button onClick={() => onAddUser({ name, age, avatar: "assets/images/no-user.svg" })} className="primary">
           Create
         </button>
       </div>
