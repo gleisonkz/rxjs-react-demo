@@ -15,9 +15,10 @@ export function CreateUser() {
         </div>
         <div className={styles.inputContainer}>
           <label>Age:</label>
-          <input data-testid="age-input" onChange={(e) => setAge(+e.target.value)} type="text" />
+          <input min={1} data-testid="age-input" onChange={(e) => setAge(+e.target.value)} type="number" />
         </div>
         <button
+          disabled={!name || !age}
           data-testid="add-user-button"
           onClick={() => onAddUser({ name, age, avatar: "assets/images/no-user.svg" })}
           className="primary"
