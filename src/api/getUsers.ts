@@ -5,10 +5,9 @@ import { UserProps } from '../components/SelectedUser/SelectedUser';
 export interface UserResponse {
   id: number;
   email: string;
-  first_name: string;
-  last_name: string;
+  name: string;
   avatar: string;
-  age?: number;
+  age: number;
 }
 
 export function getUsers(): Observable<UserProps[]> {
@@ -16,13 +15,11 @@ export function getUsers(): Observable<UserProps[]> {
   return ajax.getJSON<UserResponse[]>(url).pipe(
     map((users) => {
       return users.map((user) => {
-        const { id, first_name, last_name, avatar } = user;
+        const { id } = user;
 
         const userProps: UserProps = {
+          ...user,
           userID: id,
-          name: `${first_name} ${last_name}`,
-          age: user?.age ?? Math.floor(Math.random() * 100),
-          avatar,
         };
 
         return userProps;

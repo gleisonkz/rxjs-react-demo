@@ -2,15 +2,19 @@ import { bind } from '@react-rxjs/core';
 import { createSignal, mergeWithKey, partitionByKey } from '@react-rxjs/utils';
 
 import { map, merge, mergeAll, scan, switchMap } from 'rxjs';
+import { createUser, CreateUser } from '../api/createUser';
 import { getUsers } from '../api/getUsers';
 import { UserProps } from '../components/SelectedUser/SelectedUser';
 
 export const [incrementAge$, onIncrementAge] = createSignal<UserProps>();
 export const [selectedUser$, selectedUser] = createSignal<UserProps>();
-export const [addUser$, onAddUser] = createSignal<UserProps>();
+
+export const [addUser$, onAddUser] = createSignal<CreateUser>();
+const createUser$ = addUser$.pipe(switchMap(createUser));
 
 const initialUsers$ = getUsers().pipe(mergeAll());
-const add$ = merge(initialUsers$, addUser$);
+
+const add$ = merge(initialUsers$, createUser$);
 
 const userActions$ = mergeWithKey({
   increment: incrementAge$,

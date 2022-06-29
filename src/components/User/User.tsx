@@ -12,10 +12,14 @@ export function User({ userID: targetID }: { userID: number }) {
         <span>
           {name} is <span data-testid="age">{age}</span> years old
         </span>
-        <button data-testid="increment-age-button" onClick={() => onIncrementAge({ ...user, age: age + 1 })}>
+        <button
+          className="primary"
+          data-testid="increment-age-button"
+          onClick={() => onIncrementAge({ ...user, age: age + 1 })}
+        >
           Increment
         </button>
-        <button data-testid="select-user-button" onClick={() => selectedUser(user)}>
+        <button className="primary" data-testid="select-user-button" onClick={() => selectedUser(user)}>
           Select
         </button>
       </div>

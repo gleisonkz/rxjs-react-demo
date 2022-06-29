@@ -8,3 +8,49 @@ h1,
 h2 {
   text-align: center;
 }
+
+h1 {
+  font-size: clamp(1.5rem, 2vw, 2.5rem);
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #282c34;
+}
+
+button.primary {
+  padding: 0.5rem;
+  background-color: darkslateblue;
+  color: white;
+  border-radius: 0.25rem;
+  border: none;
+  cursor: pointer;
+  transition: filter 0.2s ease-in-out;
+  width: 100%;
+}
+
+button.primary :hover {
+  filter: brightness(0.8);
+}
+
+.logo {
+  max-width: 120px;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .logo {
+    animation: spin infinite 20s linear;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

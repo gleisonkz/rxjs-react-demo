@@ -3,50 +3,42 @@
     {
       "id": 1,
       "email": "george.bluth@reqres.in",
-      "first_name": "George",
-      "last_name": "Bluth",
+      "name": "George Ramos",
       "avatar": "https://reqres.in/img/faces/1-image.jpg",
-      "age": "23"
+      "age": 23
     },
     {
       "id": 2,
       "email": "janet.weaver@reqres.in",
-      "first_name": "Janet",
-      "last_name": "Weaver",
+      "name": "Janet Weaver",
       "avatar": "https://reqres.in/img/faces/2-image.jpg",
-      "age": "34"
+      "age": 34
     },
     {
       "id": 3,
       "email": "emma.wong@reqres.in",
-      "first_name": "Emma",
-      "last_name": "Wong",
+      "name": "Emma Wong",
       "avatar": "https://reqres.in/img/faces/3-image.jpg",
-      "age": "22"
+      "age": 22
     },
     {
       "id": 4,
       "email": "eve.holt@reqres.in",
-      "first_name": "Eve",
-      "last_name": "Holt",
+      "name": "Eve Holt",
       "avatar": "https://reqres.in/img/faces/4-image.jpg",
-      "age": "36"
+      "age": 36
     },
     {
       "id": 5,
-      "email": "charles.morris@reqres.in",
-      "first_name": "Charles",
-      "last_name": "Morris",
+      "name": "Charles Morris",
       "avatar": "https://reqres.in/img/faces/5-image.jpg",
-      "age": "21"
+      "age": 21
     },
     {
       "id": 6,
-      "email": "tracey.ramos@reqres.in",
-      "first_name": "Tracey",
-      "last_name": "Ramos",
+      "name": "Tracey Ramos",
       "avatar": "https://reqres.in/img/faces/6-image.jpg",
-      "age": "44"
+      "age": 44
     }
   ]
 }
