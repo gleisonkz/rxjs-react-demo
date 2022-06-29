@@ -4,10 +4,10 @@ import { createSignal, mergeWithKey, partitionByKey } from '@react-rxjs/utils';
 import { map, merge, mergeAll, scan, switchMap } from 'rxjs';
 import { createUser, CreateUser } from '../api/createUser';
 import { getUsers } from '../api/getUsers';
-import { UserProps } from '../components/SelectedUser/SelectedUser';
+import { User } from '../components/SelectedUser/SelectedUser';
 
-export const [incrementAge$, onIncrementAge] = createSignal<UserProps>();
-export const [selectedUser$, selectedUser] = createSignal<UserProps>();
+export const [incrementAge$, onIncrementAge] = createSignal<User>();
+export const [selectedUser$, selectedUser] = createSignal<User>();
 
 export const [addUser$, onAddUser] = createSignal<CreateUser>();
 const createUser$ = addUser$.pipe(switchMap(createUser));
@@ -36,7 +36,7 @@ const [userByID, keys$] = partitionByKey(
           case "increment":
             return { ...state, age };
         }
-      }, {} as UserProps)
+      }, {} as User)
     )
 );
 

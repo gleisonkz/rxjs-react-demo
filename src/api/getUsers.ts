@@ -1,6 +1,6 @@
 import { map, Observable } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
-import { UserProps } from '../components/SelectedUser/SelectedUser';
+import { User } from '../components/SelectedUser/SelectedUser';
 
 export interface UserResponse {
   id: number;
@@ -10,14 +10,14 @@ export interface UserResponse {
   age: number;
 }
 
-export function getUsers(): Observable<UserProps[]> {
+export function getUsers(): Observable<User[]> {
   const url = "http://localhost:3200/users";
   return ajax.getJSON<UserResponse[]>(url).pipe(
     map((users) => {
       return users.map((user) => {
         const { id } = user;
 
-        const userProps: UserProps = {
+        const userProps: User = {
           ...user,
           userID: id,
         };

@@ -1,7 +1,7 @@
 import { useSelectedUser } from '../../state/state';
 import styles from './SelectedUser.module.css';
 
-export interface UserProps {
+export interface User {
   userID: number;
   name: string;
   age: number;
