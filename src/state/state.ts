@@ -6,19 +6,17 @@ import { createUser, CreateUser } from '../api/createUser';
 import { getUsers } from '../api/getUsers';
 import { User } from '../components/SelectedUser/SelectedUser';
 
-export const [incrementAge$, onIncrementAge] = createSignal<User>();
-export const [selectedUser$, selectedUser] = createSignal<User>();
+export const [incrementAgeAction$, onIncrementAge] = createSignal<User>();
+export const [selectedUserAction$, selectedUser] = createSignal<User>();
+export const [addUserAction$, onAddUser] = createSignal<CreateUser>();
 
-export const [addUser$, onAddUser] = createSignal<CreateUser>();
-const createUser$ = addUser$.pipe(switchMap(createUser));
-
-const initialUsers$ = getUsers().pipe(mergeAll());
-
-const add$ = merge(initialUsers$, createUser$);
+const createUserResponse$ = addUserAction$.pipe(switchMap(createUser));
+const getUsersResponse$ = getUsers().pipe(mergeAll());
+const addAction$ = merge(getUsersResponse$, createUserResponse$);
 
 const userActions$ = mergeWithKey({
-  increment: incrementAge$,
-  add: add$,
+  increment: incrementAgeAction$,
+  add: addAction$,
 });
 
 const [userByID, keys$] = partitionByKey(
@@ -43,7 +41,7 @@ const [userByID, keys$] = partitionByKey(
 export const [useUserByID] = bind((userID: number) => userByID(userID));
 export const [userUserIds] = bind(keys$);
 export const [useSelectedUser] = bind(
-  merge(selectedUser$).pipe(
+  merge(selectedUserAction$).pipe(
     map(({ userID }) => userID),
     switchMap((targetID) => userByID(targetID))
   ),
