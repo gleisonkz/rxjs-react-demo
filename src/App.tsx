@@ -5,14 +5,13 @@ import { CreateUser } from './components/CreateUser/CreateUser';
 import { SelectedUser } from './components/SelectedUser/SelectedUser';
 import { Spinner } from './components/Spinner/Spinner';
 import { Users } from './components/Users/Users';
-import logo from './logo.svg';
 
 export default function App() {
   return (
     <>
       <header>
         <h1 data-testid="title">RxJS-React-Demo</h1>
-        <img src={logo} className="logo" alt="logo" />
+        <img src="assets/images/logo.svg" className="logo" alt="logo" />
       </header>
       <div>
         <Subscribe fallback={<Spinner />}>
