@@ -9,9 +9,8 @@ export const [incrementAge$, onIncrementAge] = createSignal<UserProps>();
 export const [selectedUser$, selectedUser] = createSignal<UserProps>();
 export const [addUser$, onAddUser] = createSignal<UserProps>();
 
-const add$ = merge(getUsers().pipe(mergeAll()), addUser$.pipe(map((user) => ({ ...user })))).pipe(
-  map((user, id) => ({ ...user, id }))
-);
+const initialUsers$ = getUsers().pipe(mergeAll());
+const add$ = merge(initialUsers$, addUser$);
 
 const userActions$ = mergeWithKey({
   increment: incrementAge$,
@@ -21,30 +20,28 @@ const userActions$ = mergeWithKey({
 const [userByID, keys$] = partitionByKey(
   userActions$,
   ({ payload }) => payload.userID,
-  (event$, id) =>
+  (event$) =>
     event$.pipe(
-      scan(
-        (state, action) => {
-          const { type, payload } = action;
-          const { age, avatar, name, userID } = payload;
+      scan((state, action) => {
+        const { type, payload } = action;
+        const { age, avatar, name, userID } = payload;
 
-          switch (type) {
-            case "add":
-              return { ...state, userID, name, avatar, age };
-            case "increment":
-              return { ...state, age };
-          }
-        },
-        { userID: id, name: "", age: 0 } as UserProps
-      )
+        switch (type) {
+          case "add":
+            return { ...state, userID, name, avatar, age };
+          case "increment":
+            return { ...state, age };
+        }
+      }, {} as UserProps)
     )
 );
 
-export const [useUserByID, user$] = bind((userID: number) => userByID(userID));
+export const [useUserByID] = bind((userID: number) => userByID(userID));
 export const [userUserIds] = bind(keys$);
-export const [useUpdatedSelectedUser, _] = bind(
-  merge(selectedUser$)
-    .pipe(map(({ userID }) => userID))
-    .pipe(switchMap((targetID) => userByID(targetID))),
+export const [useSelectedUser] = bind(
+  merge(selectedUser$).pipe(
+    map(({ userID }) => userID),
+    switchMap((targetID) => userByID(targetID))
+  ),
   null
 );
