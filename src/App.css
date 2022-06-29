@@ -31,8 +31,13 @@ button.primary {
   width: 100%;
 }
 
-button.primary :hover {
-  filter: brightness(0.8);
+button.primary:hover:not(:disabled) {
+  filter: brightness(1.2);
+}
+
+button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .logo {
