@@ -1,7 +1,8 @@
-import { onIncrementAge, selectedUser, useUserByID } from '../../state/state';
+import React from 'react';
+import { onDeleteUser, onIncrementAge, selectedUser, useUserByID } from '../../state/state';
 import styles from './User.module.css';
 
-export function User({ userID: targetID }: { userID: number }) {
+export const User: React.FC<{ userID: number }> = React.memo(({ userID: targetID }) => {
   const user = useUserByID(targetID);
   const { userID, name, age, avatar } = user;
 
@@ -22,7 +23,10 @@ export function User({ userID: targetID }: { userID: number }) {
         <button className="primary" data-testid="select-user-button" onClick={() => selectedUser(user)}>
           Select
         </button>
+        <button className="primary" data-testid="select-user-button" onClick={() => onDeleteUser({ userID })}>
+          Delete
+        </button>
       </div>
     </>
   );
-}
+});
