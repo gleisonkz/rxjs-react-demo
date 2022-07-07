@@ -19,7 +19,7 @@ export function SelectedUser() {
           "None"
         ) : (
           <span>
-            {name} is {age} years old
+            ID: {userID} - {name} is {age} years old
           </span>
         )}
       </h2>

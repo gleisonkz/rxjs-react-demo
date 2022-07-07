@@ -1,14 +1,16 @@
 import { bind } from '@react-rxjs/core';
 import { createSignal, mergeWithKey, partitionByKey } from '@react-rxjs/utils';
 
-import { map, merge, mergeAll, scan, switchMap, takeWhile } from 'rxjs';
+import {
+    filter, map, merge, mergeAll, of, scan, switchMap, takeWhile, tap, withLatestFrom
+} from 'rxjs';
 import { createUser, CreateUser } from '../api/createUser';
 import { DeleteUser, deleteUser } from '../api/deleteUser';
 import { getUsers } from '../api/getUsers';
 import { User } from '../components/SelectedUser/SelectedUser';
 
 export const [incrementAgeAction$, onIncrementAge] = createSignal<User>();
-export const [selectedUserAction$, selectedUser] = createSignal<User>();
+export const [selectedUserAction$, selectedUser] = createSignal<User | null>();
 export const [addUserAction$, onAddUser] = createSignal<CreateUser>();
 export const [deleteUserAction$, onDeleteUser] = createSignal<DeleteUser>();
 
@@ -48,8 +50,18 @@ export const [useUserByID] = bind((userID: number) => userByID(userID));
 export const [userUserIds] = bind(keys$);
 export const [useSelectedUser] = bind(
   merge(selectedUserAction$).pipe(
-    map(({ userID }) => userID),
-    switchMap((targetID) => userByID(targetID))
+    map((user) => user?.userID),
+    switchMap((targetID) => (targetID ? userByID(targetID) : of(null)))
   ),
   null
 );
+
+deleteUserAction$
+  .pipe(
+    map(({ userID }) => userID),
+    withLatestFrom(selectedUserAction$),
+    filter(([deletedUserID, user]) => user?.userID === deletedUserID),
+    map(() => null),
+    tap(selectedUser)
+  )
+  .subscribe();
